@@ -39,7 +39,7 @@ CREATE TABLE `Course` (
 
 LOCK TABLES `Course` WRITE;
 /*!40000 ALTER TABLE `Course` DISABLE KEYS */;
-INSERT INTO `Course` VALUES (3,'database','MySQL + Database','2022-06-16 22:00:34',4,25);
+INSERT INTO `Course` VALUES (2,'Internet','Internet','2022-06-16 00:00:00',4,25),(3,'DataBase','MySQL_Database','2022-06-16 22:00:34',4,25),(5,'我愛紅娘','紅娘愛我','2022-06-16 00:00:00',4,25);
 /*!40000 ALTER TABLE `Course` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,7 +115,7 @@ CREATE TABLE `Student` (
 
 LOCK TABLES `Student` WRITE;
 /*!40000 ALTER TABLE `Student` DISABLE KEYS */;
-INSERT INTO `Student` VALUES (1,'Peter_pan','0911-123-456','peter@hotmail','2021-06-01'),(3,'sn','329','wbc','2021-06-11'),(4,'ken','0911-123-000','ken@foo','2021-06-12'),(5,'test_sName','test_sPhone','test_sMail','2021-06-16'),(7,'mike','0911-123-454','mike@fooww','2021-06-15'),(9,'test_sName','test_sPhone','test_sMail','2202-04-04'),(11,'Vincent','123456','test_sMail@f6oo','2202-04-06');
+INSERT INTO `Student` VALUES (1,'Peter_pan','0911-123-456','peter@hotmail','2021-06-01'),(3,'NTO','329-3335','wbc@boa','2021-06-11'),(5,'test_sName','test_sPhone','test_sMail','2021-06-16'),(7,'mike','0911-123-454','mike@fooww','2021-06-15'),(9,'test_sName','test_sPhone','test_sMail','2202-04-04'),(11,'Vincent','123456','test_sMail@f6oo','2202-04-06'),(13,'ken_ch','0911-123-000','ken@foo','2021-06-12'),(33,'NTO','329-3335','wbc@boa','2021-06-11');
 /*!40000 ALTER TABLE `Student` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -140,7 +140,7 @@ CREATE TABLE `Teacher` (
 
 LOCK TABLES `Teacher` WRITE;
 /*!40000 ALTER TABLE `Teacher` DISABLE KEYS */;
-INSERT INTO `Teacher` VALUES (3,'Vivi','02-1123-4412');
+INSERT INTO `Teacher` VALUES (3,'Vivi','02-1123-4412'),(5,'咩咩羊','02-1123-4412'),(6,'大灰狼','02-1123-4412');
 /*!40000 ALTER TABLE `Teacher` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -153,4 +153,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-04 23:06:25
+-- Dump completed on 2022-06-05  0:20:00
