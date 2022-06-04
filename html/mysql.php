@@ -55,6 +55,7 @@ function query_table($conn, $q, $caption="Foo")
     foreach ($fieldinfo as $val) {
         printf("<th>%s</th>\n", $val -> name);
     }
+    echo "<th>Edit</th>\n";
     echo "<th>Delete</th><tr>\n";
 
     // Each value of row
@@ -63,9 +64,9 @@ function query_table($conn, $q, $caption="Foo")
 	    while (list($var, $val) = each($row)) {
                 print "<td>$val</td>";
 	    }
+	    echo "<td> <input type=\"button\" value=\"Edit\"> </td>";
 	    echo "<td> <input type=\"button\" value=\"Delete\"> </td>";
 	    echo "<tr>";
-
 	}
     } else {
 	echo "0 结果";
