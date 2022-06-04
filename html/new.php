@@ -21,6 +21,8 @@ echo ">>>> " . $q  . "<br>\n";
 // INSERT INTO Student SET sID="0004", sName="ken" , sPhone="0911-123-000", sMail="ken@foo" , sbirthday="2021-06-12";
 //$q = "INSERT INTO " . $_POST[$table_name] . "(" sID` ", "`sName`, `sPhone`, `sMail`, `sbirthday`) VALUES ('2', 'mike', '0911-123-454', 'pete@foos', '2021-06-15');
 $sql->new_data($q);
+
 ?>
+<button onclick="history.back()">上一頁</button>
 </body>
 </html>

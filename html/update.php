@@ -24,5 +24,6 @@ echo ">>>> " . $q  . "<br>\n";
 //$q = "INSERT INTO " . $_POST[$table_name] . "(" sID` ", "`sName`, `sPhone`, `sMail`, `sbirthday`) VALUES ('2', 'mike', '0911-123-454', 'pete@foos', '2021-06-15');
 $sql->new_data($q);
 ?>
+<button onclick="history.back()">上一頁</button>
 </body>
 </html>

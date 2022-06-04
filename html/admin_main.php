@@ -4,19 +4,26 @@
 
 $sql = new MySQL_Course();
 //$sql->query_table("SELECT * FROM Student", "Student");
-$sql->query_table("SELECT * FROM Student", "Student");
+$sql->query_table($_GET['q'], $_GET['t']);
 ?>
 <SCRIPT>
 /* https://www.w3schools.com/howto/howto_js_toggle_hide_show.asp */
 function on_edit_show(n_row, js_row) {
   var x = document.getElementById("Edit");
+  x.style.display = "block";
+
+  document.getElementById("Edit_table").caption.innerHTML = "修改";
+  document.getElementById("Submit").value = "修改";
+  document.getElementById("Edit_form").action = "update.php";
+  update_edit_table(n_row, js_row);
+}
+
+function on_delete_show(n_row, js_row) {
+  var x = document.getElementById("Edit");
   //alert(n_row);
   //alert(jx['sPhone']);
-  if (x.style.display === "none") {
     x.style.display = "block";
-  } else {
     x.style.display = "none";
-  }
   update_edit_table(n_row, js_row);
 }
 
@@ -44,55 +51,39 @@ function update_edit_table(n_row, js_row)
 </br>
 <?php
   // debug here...
-  echo "GET: ===" . $_GET['q'] . "===<br>";
-  echo "GET: ===" . $_GET['t'] . "===<br>";
-  echo "GET: ===" . $_GET['k'] . "===<br>";
+  //echo "GET: ===" . $_GET['q'] . "===<br>";
+  //echo "GET: ===" . $_GET['t'] . "===<br>";
+  //echo "GET: ===" . $_GET['k'] . "===<br>";
 ?>
-<form name="form" action="new.php" method="post" >
-<table name=new border=1>
+<div id="Edit">
+<form name="form" id="Edit_form" action="new.php" method="post" >
+<table name=new border=1 id="Edit_table">
 <caption>新增</caption>
 <?php
-    foreach ($sql->fieldinfo as $val) {
-        printf("<th>%s</th>\n", $val -> name);
-    }
-    echo "<tr>\n";
-    foreach ($sql->fieldinfo as $val) {
-        printf("<td> <input type=\"text\" name=__field__%s value=test_%s /></td>\n", $val -> name, $val -> name);
-    }
-    echo "<tr>\n";
-
-?>
-</table>
-<br>
-   <input type="hidden" name="table_name" value="Student" />
-   <input type="submit" name="submit" value="Submit" class="button"/>
-</form>
-<button onclick="on_edit_show(2, 4)">Try it</button>
-<div id="Edit">
-<form name="form" action="update.php" method="post" >
-<table name=new border=1 id="Edit_table">
-<caption>Edit</caption>
-<?php
     /* https://www.php.net/manual/en/class.mysqli-result.php */
-    $sql->query_result->data_seek(1);
+
+    /* FIXME:  Bug of if table is empty (no data) */
+    $sql->query_result->data_seek(0);
     //$sql->__dump_row_as_table($sql->query_result->fetch_assoc());
     $row = $sql->query_result->fetch_assoc();
     foreach ($sql->fieldinfo as $val) {
         printf("<th>%s</th>\n", $val -> name);
     }
     echo "<tr>\n";
-    //UPDATE `Student` SET `sID` = '7', `sMail` = 'mike@fooww' WHERE `Student`.`sID` = 2;
+
     foreach ($sql->fieldinfo as $val) {
+        //echo "name: " . $val -> name . "<br>";
+        //echo "value: " . $row[$val -> name] . "<br>";
         printf("<td> <input type=\"text\" name=__field__%s id=%s value=%s /></td>\n", $val -> name, $val -> name, $row[$val -> name]);
     }
     echo "<tr>\n";
 ?>
 </table>
 <br>
-   <input type="hidden" name="table_name" id="table_name" value="Student" />
-   <input type="hidden" name="pkey_name" id="pkey_name"  value="sID" />
-   <input type="hidden" name="pkey_value"id="pkey_value"  value="03" />
-   <input type="submit" name="submit" value="Submit" class="button"/>
+   <input type="hidden" name="table_name" id="table_name" value="<?php echo $_GET['t'] ?>" />
+   <input type="hidden" name="pkey_name" id="pkey_name"  value="" />
+   <input type="hidden" name="pkey_value"id="pkey_value"  value="" />
+   <input type="submit" name="submit" id="Submit" value="新增" class="button"/>
 </form>
 </div>
 
