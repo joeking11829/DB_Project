@@ -4,11 +4,22 @@
 <?php include 'MySQL_Course.php';
 $sql = new MySQL_Course();
 $q="";
+
+$fk = $_POST['fkey_name'];
+
 while( list( $key, $value ) = each( $_POST )) {
    echo $key . " : " . $value . "<br>";
+   /* XXX: Tricky solution, 
+    * 1. keyword prefix with __field__ is field name
+    * 2. Skip process foreign key @fk 
+    */
    if (!strncmp($key, "__field__", 9)) {
-//       echo "This is $key";
-//       echo "Replaced to: " . str_replace("__field__", "", $key);
+       echo "COMPARE __field__$fk  AND $key <br>";
+       echo "COMPARE " . strlen("__field__$fk") . "AND" . strlen($key) . " <br>\n";
+       if (!strncmp("__field__$fk", $key, strlen($key))) {
+	  echo "======= skip foreign key $fk <br>\n";
+          continue;
+         }
        $q = $q . str_replace("__field__", "", $key) . "=\"$value\",";
        echo "======= $q <br>\n";
    }

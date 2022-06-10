@@ -33,7 +33,8 @@ function update_edit_table(n_row, js_row)
   /* https://www.w3schools.com/jsref/coll_table_cells.asp */
   //alert(document.getElementById("Edit_table").rows[0].cells.length);
   var pk = "<?php echo $_GET['k'] ?>";
-  for(var k in js_row) {
+  var fk = "<?php echo isset($_GET['f']) ? $_GET['f']:''; ?>"; //  @f migh be NULL.
+  for (var k in js_row) {
     //alert(js_row[k]);
     document.getElementById(k).value = js_row[k];
     if (pk == k)
@@ -41,7 +42,7 @@ function update_edit_table(n_row, js_row)
   }
   document.getElementById("table_name").value = "<?php echo $_GET['t']; ?>";
   document.getElementById("pkey_name").value = pk;
-
+  document.getElementById("fkey_name").value = fk; // foreign key might null
 }
 
 </SCRIPT>
@@ -84,6 +85,7 @@ function update_edit_table(n_row, js_row)
    <input type="hidden" name="table_name" id="table_name" value="<?php echo $_GET['t'] ?>" />
    <input type="hidden" name="pkey_name" id="pkey_name"  value="" />
    <input type="hidden" name="pkey_value"id="pkey_value"  value="" />
+   <input type="hidden" name="fkey_name"id="fkey_name"  value="" />
    <input type="submit" name="submit" id="Submit" value="新增" class="button"/>
 </form>
 </div>
