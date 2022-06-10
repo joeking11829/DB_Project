@@ -86,18 +86,9 @@ class MySQL_Course extends mysqli {
   public function new_data($q)
   {
     if (! ($this->query_result = parent::query($q))) {
-       echo("Error description: " . $conn -> error . "<br>\n");
+       echo("Error description: " . $this -> error . "<br>\n");
     } else
       echo "Success!<br>\n";
   }
 }
-
-function new_data($conn, $q)
-{
-    if (!$conn -> query($q)) {
- 	 echo("Error description: " . $conn -> error . "<br>\n");
-    } else
-	echo "Success!<br>\n";
-}
-//dump_table($sql, "Student");
 ?>
