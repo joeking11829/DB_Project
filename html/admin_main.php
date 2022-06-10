@@ -20,10 +20,11 @@ function on_edit_show(n_row, js_row) {
 
 function on_delete_show(n_row, js_row) {
   var x = document.getElementById("Edit");
-  //alert(n_row);
-  //alert(jx['sPhone']);
-    x.style.display = "block";
-    x.style.display = "none";
+  x.style.display = "block";
+
+  document.getElementById("Edit_table").caption.innerHTML = "刪除";
+  document.getElementById("Submit").value = "刪除";
+  document.getElementById("Edit_form").action = "del.php";
   update_edit_table(n_row, js_row);
 }
 

@@ -56,12 +56,13 @@ class MySQL_Course extends mysqli {
              */
 	    $v = json_encode($row);
             echo "<script> var js" . $n . "=" . $v . "</script>";
-	    echo "<td> <input type=\"button\" value=\"Edit\" onclick=\"on_edit_show(" . $n . ", js". $n++ . ")\"> </td>\n";
+	    echo "<td> <input type=\"button\" value=\"Edit\" onclick=\"on_edit_show(" . $n . ", js". $n . ")\"> </td>\n";
 
 	    /* 
              * Process Delte button
              */
-	    echo "<td> <input type=\"button\" value=\"Delete\"> </td>\n";
+	    //echo "<td> <input type=\"button\" value=\"Delete\"> </td>\n";
+	    echo "<td> <input type=\"button\" value=\"Delete\" onclick=\"on_delete_show(" . $n . ", js". $n++ . ")\"> </td>\n";
 	    echo "<tr>";
 	}
     } else {
