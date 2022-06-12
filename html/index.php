@@ -8,6 +8,8 @@
 <a href="admin_main.php?q=SELECT * FROM Student&t=Student&k=sID" title="管理">維護頁面</a><br>
 <a href="admin_main.php?q=SELECT Course.*,Teacher.tName FROM Course JOIN Teacher ON Teacher.tId = Course.tId&t=Course&k=cId&f=tName"
 title="join foreign key test">join foreign key test</a><br>
+<a href="admin_main.php?q=SELECT Course.*,Teacher.tName FROM Course JOIN Teacher ON Teacher.tId = Course.tId&t=Course&k=cId&f=tName"
+title="join foreign key test">join foreign key test</a><br>
 </center>
 </body>
 </html>

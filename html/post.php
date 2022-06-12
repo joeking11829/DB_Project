@@ -3,17 +3,31 @@
 <body>
 <?php include 'MySQL_Course.php';
 $sql = new MySQL_Course();
+/*
+ * POST:
+ *
+ * @action_emu - [new|update|delete]
+ * @fkey_name  - bypass foreign keyname if @action_emu is update or new
+ * @table_name - Manipulated table
+ *
+ **/
+$act = $_POST['action_emu'];
+$fk  = $_POST['fkey_name'];
+
+/*
+ * Case in @action_emu = delete, did not need fields, just want primary_key number.
+ */
+
 $q="";
 
-$fk = $_POST['fkey_name'];
-
-while( list( $key, $value ) = each( $_POST )) {
-   echo $key . " : " . $value . "<br>";
-   /* XXX: Tricky solution, 
-    * 1. keyword prefix with __field__ is field name
-    * 2. Skip process foreign key @fk 
-    */
-   if (!strncmp($key, "__field__", 9)) {
+if ($act != "delete") {
+  while( list( $key, $value ) = each( $_POST )) {
+    echo $key . " : " . $value . "<br>";
+    /* XXX: Tricky solution, 
+     * 1. keyword prefix with "__field__" is field name
+     * 2. Skip process foreign key @fk 
+     */
+    if (!strncmp($key, "__field__", 9)) {
        echo "COMPARE __field__$fk  AND $key <br>";
        echo "COMPARE " . strlen("__field__$fk") . "AND" . strlen($key) . " <br>\n";
        if (!strncmp("__field__$fk", $key, strlen($key))) {
@@ -22,18 +36,41 @@ while( list( $key, $value ) = each( $_POST )) {
          }
        $q = $q . str_replace("__field__", "", $key) . "=\"$value\",";
        echo "======= $q <br>\n";
-   }
+    }
+  }
 }
+
 //$q = "INSERT INTO " . $_POST['table_name'] . " SET " . rtrim($q, ",")  . ";";
 // UPDATE `Student` SET `sID` = '7', `sMail` = 'mike@fooww' WHERE `Student`.`sID` = 2;
-$q = "UPDATE " . $_POST['table_name'] . " SET " . rtrim($q, ",") . 
-" WHERE " . $_POST['table_name'] . "." . $_POST['pkey_name'] . "=\"" . $_POST['pkey_value'] . "\";";
+if ($act == "update")
+{
+
+  $q = "UPDATE " . $_POST['table_name'] . " SET " . rtrim($q, ",") . 
+  " WHERE " . $_POST['table_name'] . "." . $_POST['pkey_name'] . "=\"" . $_POST['pkey_value'] . "\";";
+
+}
+else if ($act == "new")
+{
+  $q = "INSERT INTO " . $_POST['table_name'] . " SET " . rtrim($q, ",")  . ";";
+
+}
+else if ($act = "delete")
+{
+
+  $q = "DELETE FROM " . $_POST['table_name'] .  
+  " WHERE " . $_POST['table_name'] . "." . $_POST['pkey_name'] . "=\"" . $_POST['pkey_value'] . "\";";
+
+}
 echo ">>>> " . $q  . "<br>\n";
+
+echo "Query >>>> " . $q  . "<br>\n";
+$sql->new_data($q);
+
+
 // INSERT INTO `Student` (`sID`, `sName`, `sPhone`, `sMail`, `sbirthday`) VALUES ('2', 'mike', '0911-123-454', 'pete@foos', '2021-06-15');
 // Test ok
 // INSERT INTO Student SET sID="0004", sName="ken" , sPhone="0911-123-000", sMail="ken@foo" , sbirthday="2021-06-12";
 //$q = "INSERT INTO " . $_POST[$table_name] . "(" sID` ", "`sName`, `sPhone`, `sMail`, `sbirthday`) VALUES ('2', 'mike', '0911-123-454', 'pete@foos', '2021-06-15');
-$sql->new_data($q);
 ?>
 <button onclick="history.back()">上一頁</button>
 </body>
