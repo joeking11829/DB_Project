@@ -14,7 +14,9 @@ function on_edit_show(n_row, js_row) {
 
   document.getElementById("Edit_table").caption.innerHTML = "修改";
   document.getElementById("Submit").value = "修改";
-  document.getElementById("Edit_form").action = "update.php";
+  //document.getElementById("Edit_form").action = "update.php";
+  //document.getElementById("Edit_form").action = "post.php";
+  document.getElementById("action_emu").value = "update";
   update_edit_table(n_row, js_row);
 }
 
@@ -24,7 +26,8 @@ function on_delete_show(n_row, js_row) {
 
   document.getElementById("Edit_table").caption.innerHTML = "刪除";
   document.getElementById("Submit").value = "刪除";
-  document.getElementById("Edit_form").action = "del.php";
+  //document.getElementById("Edit_form").action = "del.php";
+  document.getElementById("action_emu").value = "delete";
   update_edit_table(n_row, js_row);
 }
 
@@ -58,7 +61,7 @@ function update_edit_table(n_row, js_row)
   //echo "GET: ===" . $_GET['k'] . "===<br>";
 ?>
 <div id="Edit">
-<form name="form" id="Edit_form" action="new.php" method="post" >
+<form name="form" id="Edit_form" action="post.php" method="post" >
 <table name=new border=1 id="Edit_table">
 <caption>新增</caption>
 <?php
@@ -82,10 +85,12 @@ function update_edit_table(n_row, js_row)
 ?>
 </table>
 <br>
+   <!-- update when user click to post form , default is new row -->
    <input type="hidden" name="table_name" id="table_name" value="<?php echo $_GET['t'] ?>" />
    <input type="hidden" name="pkey_name" id="pkey_name"  value="" />
    <input type="hidden" name="pkey_value"id="pkey_value"  value="" />
-   <input type="hidden" name="fkey_name"id="fkey_name"  value="" />
+   <input type="hidden" name="fkey_name" id="fkey_name"  value="" />
+   <input type="hidden" name="action_emu" id="action_emu"  value="new" />
    <input type="submit" name="submit" id="Submit" value="新增" class="button"/>
 </form>
 </div>
