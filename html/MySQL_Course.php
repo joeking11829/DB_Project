@@ -35,7 +35,29 @@ class MySQL_Course extends mysqli {
       return [];
     return explode($sep, $s);
   }
-  public function query_table($q, $caption="Unknow")
+  public function _POST($k)
+  {
+    if (isset($_POST[$k])) {
+      return $_POST[$k];
+    }
+    return '';
+  }
+
+  public function _POST_explode($k, $sep)
+  {
+    $s = $this->_POST($k);
+    if ($s == '')
+      return [];
+    return explode($sep, $s);
+  }
+
+  private function __table_button($row_th)
+  {
+     if (in_array('Attend', $this->_GET_explode('o', ','))) {
+        echo "<td> <input type=\"button\" value=\"加選\" onclick=\"on_attend_show(" . $row_th . ", js". $row_th . ")\"> </td>\n";
+      }
+  }
+   public function query_table($q, $caption="Unknow")
   {
 
     $result = parent::query($q);
@@ -80,6 +102,7 @@ class MySQL_Course extends mysqli {
        */
       $v = json_encode($row);
       echo "<script> var js" . $n . "=" . $v . "</script>";
+      $this->__table_button($n);
       if (in_array('Edit', $this->_GET_explode('o', ','))) {
         echo "<td> <input type=\"button\" value=\"Edit\" onclick=\"on_edit_show(" . $n . ", js". $n . ")\"> </td>\n";
       }
@@ -89,8 +112,9 @@ class MySQL_Course extends mysqli {
 
       if (in_array('Delete', $this->_GET_explode('o', ','))) {
         //echo "<td> <input type=\"button\" value=\"Delete\"> </td>\n";
-        echo "<td> <input type=\"button\" value=\"Delete\" onclick=\"on_delete_show(" . $n . ", js". $n++ . ")\"> </td>\n";
+        echo "<td> <input type=\"button\" value=\"Delete\" onclick=\"on_delete_show(" . $n . ", js". $n . ")\"> </td>\n";
       }
+      $n++;
       echo "<tr>";
     }
     echo "</table>";

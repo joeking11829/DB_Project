@@ -50,6 +50,16 @@ function on_delete_show(n_row, js_row) {
   __update_hidden_value(n_row, js_row);
 }
 
+function on_attend_show(n_row, js_row) {
+  var x = document.getElementById("Edit");
+  x.style.display = "block";
+
+  document.getElementById("Edit_table").caption.innerHTML = "加選";
+  document.getElementById("Submit").value = "加選";
+  //document.getElementById("Edit_form").action = "del.php";
+  document.getElementById("action_emu").value = "attend";
+  __update_hidden_value(n_row, js_row);
+}
 </SCRIPT>
 <head></head>
 <body>
@@ -92,6 +102,7 @@ function on_delete_show(n_row, js_row) {
 <br>
    <!-- update when user click to post form , default is new row -->
    <input type="hidden" name="table_name" id="table_name" value="<?php echo $_GET['t'] ?>" />
+   <input type="hidden" name="student_id" id="student_id" value="<?php echo $sql->_GET('s')?>" />
    <input type="hidden" name="pkey_name" id="pkey_name"  value="" />
    <input type="hidden" name="pkey_value"id="pkey_value"  value="" />
    <input type="hidden" name="fkey_name" id="fkey_name"  value="" />
