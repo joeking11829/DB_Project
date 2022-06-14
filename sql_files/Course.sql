@@ -2,9 +2,9 @@
 -- version 4.9.5deb2
 -- https://www.phpmyadmin.net/
 --
--- 主机： localhost:3306
--- 生成日期： 2022-06-14 20:54:38
--- 服务器版本： 8.0.29-0ubuntu0.20.04.3
+-- 主機： localhost:3306
+-- 產生時間： 2022 年 06 月 15 日 02:00
+-- 伺服器版本： 8.0.29-0ubuntu0.20.04.3
 -- PHP 版本： 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -19,36 +19,38 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 数据库： `Course`
+-- 資料庫： `Course`
 --
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `Attend`
+-- 資料表結構 `Attend`
 --
 
 CREATE TABLE `Attend` (
   `aId` int UNSIGNED NOT NULL,
   `cId` int UNSIGNED NOT NULL,
   `sId` int UNSIGNED NOT NULL,
-  `aDesc` char(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
+  `aDesc` char(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- 转存表中的数据 `Attend`
+-- 傾印資料表的資料 `Attend`
 --
 
 INSERT INTO `Attend` (`aId`, `cId`, `sId`, `aDesc`) VALUES
 (1, 0, 1, 'test'),
-(2, 4, 6, 'zxxx'),
-(3, 8, 1, 'zzzzzz'),
-(5, 3, 1, '');
+(7, 33, 1, NULL),
+(8, 4, 1, NULL),
+(9, 4, 1, NULL),
+(10, 8, 2, NULL),
+(11, 3, 2, NULL);
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `Course`
+-- 資料表結構 `Course`
 --
 
 CREATE TABLE `Course` (
@@ -62,7 +64,7 @@ CREATE TABLE `Course` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- 转存表中的数据 `Course`
+-- 傾印資料表的資料 `Course`
 --
 
 INSERT INTO `Course` (`cId`, `tId`, `cName`, `cDesc`, `dateTime`, `unit`, `max`) VALUES
@@ -75,7 +77,7 @@ INSERT INTO `Course` (`cId`, `tId`, `cName`, `cDesc`, `dateTime`, `unit`, `max`)
 -- --------------------------------------------------------
 
 --
--- 表的结构 `Department`
+-- 資料表結構 `Department`
 --
 
 CREATE TABLE `Department` (
@@ -87,7 +89,7 @@ CREATE TABLE `Department` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- 转存表中的数据 `Department`
+-- 傾印資料表的資料 `Department`
 --
 
 INSERT INTO `Department` (`dId`, `dName`, `dAddress`, `dPhone`, `chair`) VALUES
@@ -98,7 +100,7 @@ INSERT INTO `Department` (`dId`, `dName`, `dAddress`, `dPhone`, `chair`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的结构 `Room`
+-- 資料表結構 `Room`
 --
 
 CREATE TABLE `Room` (
@@ -108,10 +110,19 @@ CREATE TABLE `Room` (
   `rLocation` char(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- 傾印資料表的資料 `Room`
+--
+
+INSERT INTO `Room` (`rId`, `tId`, `rSzie`, `rLocation`) VALUES
+(1, 2, 3, '44'),
+(2, 5, 44, '55'),
+(3, 2, 3, '33');
+
 -- --------------------------------------------------------
 
 --
--- 表的结构 `Student`
+-- 資料表結構 `Student`
 --
 
 CREATE TABLE `Student` (
@@ -124,23 +135,25 @@ CREATE TABLE `Student` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- 转存表中的数据 `Student`
+-- 傾印資料表的資料 `Student`
 --
 
 INSERT INTO `Student` (`sID`, `dId`, `sName`, `sPhone`, `sMail`, `sbirthday`) VALUES
 (1, 0, 'Peter_pan', '0911-123-456', 'peter@hotmail', '2021-06-01'),
 (2, 0, 'Bill', '0911-123-411', 'bill@hotmail', '2021-06-01'),
 (3, 0, 'NTO', '329-3335', 'wbc@boa', '2021-06-11'),
+(4, 0, 'Peter_pan32222', '0911-123-456', 'peter@hotmail', '2021-06-01'),
 (6, 0, 'alan', '123311', 'alan@foo', '2021-06-16'),
 (7, 0, 'mike', '0911-123-454', 'mike@fooww', '2021-06-15'),
-(11, 0, 'Vincent2', '123456', 'test_sMail@f6oo', '2202-04-06'),
+(11, 0, 'Vincent', '123456', 'test_sMail@f6oo', '2202-04-06'),
 (13, 1, 'ken_chw', '0911-123-000', 'ken@foo', '2021-06-12'),
+(32, 0, 'Joe', '0911-123-456', 'peter@hotmail', '2021-06-01'),
 (33, 0, 'NTO', '329-3335', 'wbc@boa', '2021-06-11');
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `Teacher`
+-- 資料表結構 `Teacher`
 --
 
 CREATE TABLE `Teacher` (
@@ -150,7 +163,7 @@ CREATE TABLE `Teacher` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- 转存表中的数据 `Teacher`
+-- 傾印資料表的資料 `Teacher`
 --
 
 INSERT INTO `Teacher` (`tId`, `tName`, `tPhone`) VALUES
@@ -163,11 +176,11 @@ INSERT INTO `Teacher` (`tId`, `tName`, `tPhone`) VALUES
 (6, '大灰狼', '02-1123-4412');
 
 --
--- 转储表的索引
+-- 已傾印資料表的索引
 --
 
 --
--- 表的索引 `Attend`
+-- 資料表索引 `Attend`
 --
 ALTER TABLE `Attend`
   ADD PRIMARY KEY (`aId`),
@@ -175,73 +188,73 @@ ALTER TABLE `Attend`
   ADD KEY `cId` (`cId`,`sId`) USING BTREE;
 
 --
--- 表的索引 `Course`
+-- 資料表索引 `Course`
 --
 ALTER TABLE `Course`
   ADD PRIMARY KEY (`cId`),
   ADD KEY `TeachForeignKey` (`tId`);
 
 --
--- 表的索引 `Department`
+-- 資料表索引 `Department`
 --
 ALTER TABLE `Department`
   ADD PRIMARY KEY (`dId`);
 
 --
--- 表的索引 `Room`
+-- 資料表索引 `Room`
 --
 ALTER TABLE `Room`
   ADD PRIMARY KEY (`rId`),
   ADD KEY `Teacher` (`tId`);
 
 --
--- 表的索引 `Student`
+-- 資料表索引 `Student`
 --
 ALTER TABLE `Student`
   ADD PRIMARY KEY (`sID`),
   ADD KEY `Department` (`dId`);
 
 --
--- 表的索引 `Teacher`
+-- 資料表索引 `Teacher`
 --
 ALTER TABLE `Teacher`
   ADD PRIMARY KEY (`tId`);
 
 --
--- 在导出的表使用AUTO_INCREMENT
+-- 在傾印的資料表使用自動遞增(AUTO_INCREMENT)
 --
 
 --
--- 使用表AUTO_INCREMENT `Attend`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `Attend`
 --
 ALTER TABLE `Attend`
-  MODIFY `aId` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `aId` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- 限制导出的表
+-- 已傾印資料表的限制式
 --
 
 --
--- 限制表 `Attend`
+-- 資料表的限制式 `Attend`
 --
 ALTER TABLE `Attend`
   ADD CONSTRAINT `Atttend` FOREIGN KEY (`cId`) REFERENCES `Course` (`cId`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `Student` FOREIGN KEY (`sId`) REFERENCES `Student` (`sID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
--- 限制表 `Course`
+-- 資料表的限制式 `Course`
 --
 ALTER TABLE `Course`
   ADD CONSTRAINT `TeachForeignKey` FOREIGN KEY (`tId`) REFERENCES `Teacher` (`tId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
--- 限制表 `Room`
+-- 資料表的限制式 `Room`
 --
 ALTER TABLE `Room`
   ADD CONSTRAINT `Teacher` FOREIGN KEY (`tId`) REFERENCES `Teacher` (`tId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
--- 限制表 `Student`
+-- 資料表的限制式 `Student`
 --
 ALTER TABLE `Student`
   ADD CONSTRAINT `Department` FOREIGN KEY (`dId`) REFERENCES `Department` (`dId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
