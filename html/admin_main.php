@@ -4,9 +4,28 @@
 
 $sql = new MySQL_Course();
 //$sql->query_table("SELECT * FROM Student", "Student");
+//$sql->query_table($_GET['q'], $_GET['t'], isset($_GET['o']) ? $_GET['o'] : "");
+//$sql->query_table($_GET['q'], $_GET['t'], isset($_GET['o']) ? $_GET['o'] : "");
 $sql->query_table($_GET['q'], $_GET['t']);
 ?>
 <SCRIPT>
+function __update_hidden_value(n_row, js_row)
+{
+  /* https://www.w3schools.com/jsref/coll_table_cells.asp */
+  //alert(document.getElementById("Edit_table").rows[0].cells.length);
+  var pk = "<?php echo $_GET['k'] ?>";
+  //var fk = "<?php echo isset($_GET['f']) ? $_GET['f']:''; ?>"; //  @f migh be NULL.
+  for (var k in js_row) {
+    //alert(js_row[k]);
+    document.getElementById(k).value = js_row[k];
+    if (pk == k)
+      document.getElementById("pkey_value").value = js_row[k];
+  }
+  document.getElementById("table_name").value = "<?php echo $_GET['t']; ?>";
+  document.getElementById("pkey_name").value = pk;
+  document.getElementById("fkey_name").value = "<?php echo $sql->_GET('f'); ?>"; // foreign key might null
+}
+
 /* https://www.w3schools.com/howto/howto_js_toggle_hide_show.asp */
 function on_edit_show(n_row, js_row) {
   var x = document.getElementById("Edit");
@@ -17,7 +36,7 @@ function on_edit_show(n_row, js_row) {
   //document.getElementById("Edit_form").action = "update.php";
   //document.getElementById("Edit_form").action = "post.php";
   document.getElementById("action_emu").value = "update";
-  update_edit_table(n_row, js_row);
+  __update_hidden_value(n_row, js_row);
 }
 
 function on_delete_show(n_row, js_row) {
@@ -28,24 +47,7 @@ function on_delete_show(n_row, js_row) {
   document.getElementById("Submit").value = "刪除";
   //document.getElementById("Edit_form").action = "del.php";
   document.getElementById("action_emu").value = "delete";
-  update_edit_table(n_row, js_row);
-}
-
-function update_edit_table(n_row, js_row)
-{
-  /* https://www.w3schools.com/jsref/coll_table_cells.asp */
-  //alert(document.getElementById("Edit_table").rows[0].cells.length);
-  var pk = "<?php echo $_GET['k'] ?>";
-  var fk = "<?php echo isset($_GET['f']) ? $_GET['f']:''; ?>"; //  @f migh be NULL.
-  for (var k in js_row) {
-    //alert(js_row[k]);
-    document.getElementById(k).value = js_row[k];
-    if (pk == k)
-      document.getElementById("pkey_value").value = js_row[k];
-  }
-  document.getElementById("table_name").value = "<?php echo $_GET['t']; ?>";
-  document.getElementById("pkey_name").value = pk;
-  document.getElementById("fkey_name").value = fk; // foreign key might null
+  __update_hidden_value(n_row, js_row);
 }
 
 </SCRIPT>
@@ -61,6 +63,9 @@ function update_edit_table(n_row, js_row)
   //echo "GET: ===" . $_GET['k'] . "===<br>";
 ?>
 <div id="Edit">
+<SCRIPT>
+  document.getElementById("Edit").style.display = "<?php echo in_array('New', $sql->_GET_explode('o', ',')) ? 'block':'None';?>";
+</SCRIPT>
 <form name="form" id="Edit_form" action="post.php" method="post" >
 <table name=new border=1 id="Edit_table">
 <caption>新增</caption>

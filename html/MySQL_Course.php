@@ -20,8 +20,22 @@ class MySQL_Course extends mysqli {
     if ($this->connect_error)
       die("Connection failed: " . parent::connect_error);
   }
+  public function _GET($k)
+  {
+    if (isset($_GET[$k])) {
+      return $_GET[$k];
+    }
+    return '';
+  }
 
-  public function query_table($q, $caption="Foo")
+  public function _GET_explode($k, $sep)
+  {
+    $s = $this->_GET($k);
+    if ($s == '')
+      return [];
+    return explode($sep, $s);
+  }
+  public function query_table($q, $caption="Unknow")
   {
 
     $result = parent::query($q);
@@ -34,39 +48,50 @@ class MySQL_Course extends mysqli {
     foreach ($this -> fieldinfo as $val) {
         printf("<th>%s</th>\n", $val -> name);
     }
-    echo "<th>Edit</th>\n";
-    echo "<th>Delete</th><tr>\n";
 
+    if (in_array('Edit', $this->_GET_explode('o', ','))) {
+      echo "<th>Edit</th>\n";
+    }
+    if (in_array('Delete', $this->_GET_explode('o', ','))) {
+      echo "<th>Delete</th>\n";
+    }
+    if (in_array('Add', $this->_GET_explode('o', ','))) {
+      echo "<th>Add</th>\n";
+    }
+    echo "<tr>\n";
     // Each value of row
-    if ($result->num_rows > 0) {
-        $n = 0;
-	while($row = $result->fetch_assoc()) {
-	    while (list($var, $val) = each($row)) {
-                print "<td>$val</td>";
-	    }
-	    //echo "<td> <input type=\"button\" value=\"Edit\" onclick=on_edit_show(" . $n++ . ")> </td>";
+    if ($result->num_rows <= 0) {
+      echo "</table>";
+      return $this -> fieldinfo;
+    }
+    $n = 0;
+    while($row = $result->fetch_assoc()) {
+      while (list($var, $val) = each($row)) {
+        print "<td>$val</td>";
+      }
+      //echo "<td> <input type=\"button\" value=\"Edit\" onclick=on_edit_show(" . $n++ . ")> </td>";
+      /*
+       * Process Edit button onclick
+       * FIXME: this is tricky solution, set js_X to json object then pass to click event
+       *
+       *Look like as
+       * ... <script> var js1={"sID":"2","sName":"mike","sPhone":"0911-123-454","sMail":"pete@foos","sbirthday":"2021-06-15"}</script>
+       * <td> <input type="button" value="Edit" onclick="on_edit_show(1, js1)"> </td> ...
+       */
+      $v = json_encode($row);
+      echo "<script> var js" . $n . "=" . $v . "</script>";
+      if (in_array('Edit', $this->_GET_explode('o', ','))) {
+        echo "<td> <input type=\"button\" value=\"Edit\" onclick=\"on_edit_show(" . $n . ", js". $n . ")\"> </td>\n";
+      }
+      /*
+      * Process Delte button
+      */
 
-	    /* 
-             * Process Edit button onclick
-             * FIXME: this is tricky solution, set js_X to json object then pass to click event
-             *
-             *  Look like as
-             * ... <script> var js1={"sID":"2","sName":"mike","sPhone":"0911-123-454","sMail":"pete@foos","sbirthday":"2021-06-15"}</script>
-             * <td> <input type="button" value="Edit" onclick="on_edit_show(1, js1)"> </td> ...
-             */
-	    $v = json_encode($row);
-            echo "<script> var js" . $n . "=" . $v . "</script>";
-	    echo "<td> <input type=\"button\" value=\"Edit\" onclick=\"on_edit_show(" . $n . ", js". $n . ")\"> </td>\n";
-
-	    /* 
-             * Process Delte button
-             */
-	    //echo "<td> <input type=\"button\" value=\"Delete\"> </td>\n";
-	    echo "<td> <input type=\"button\" value=\"Delete\" onclick=\"on_delete_show(" . $n . ", js". $n++ . ")\"> </td>\n";
-	    echo "<tr>";
-	}
-    } else {
-	echo "0 结果";
+      if (in_array('Delete', $this->_GET_explode('o', ','))) {
+        //echo "<td> <input type=\"button\" value=\"Delete\"> </td>\n";
+        echo "<td> <input type=\"button\" value=\"Delete\" onclick=\"on_delete_show(" . $n . ", js". $n++ . ")\"> </td>\n";
+      }
+      echo "<tr>";
     }
     echo "</table>";
     return $this -> fieldinfo;
