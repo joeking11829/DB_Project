@@ -13,7 +13,7 @@
 
 <hr>
 加選<br>
-<iframe src="admin_main.php?q=SELECT Course.*,Teacher.tName FROM Course JOIN Teacher ON Teacher.tId = Course.tId&t=Attend&k=cId&f=tName&o=Attend&s=<?php echo $_POST['sId']?>" height=300 width=1400>
+<iframe src="admin_main.php?q=SELECT Course.*,Teacher.tName, COUNT(Attend.sId) as attendCount FROM Course JOIN Teacher ON Teacher.tId = Course.tId JOIN Attend ON Attend.cId = Course.cId GROUP BY Course.cId&t=Attend&k=cId&f=tName&o=Attend&s=<?php echo $_POST['sId']?>" height=300 width=1400>
 </iframe>
 </center>
 </body>

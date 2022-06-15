@@ -1,7 +1,7 @@
 #!/bin/bash
 
 docker run -ti --rm --name=db_project_runtime \
-           -v $(pwd)/../app:/app \
+           -v $(pwd)/../html:/app \
            -v $(pwd)/../mysql_db:/var/lib/mysql \
            -p "80:80" \
            -p "3306:3306" \
