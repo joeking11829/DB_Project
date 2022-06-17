@@ -2,9 +2,9 @@
 -- version 4.9.5deb2
 -- https://www.phpmyadmin.net/
 --
--- 主機： localhost:3306
--- 產生時間： 2022 年 06 月 15 日 02:00
--- 伺服器版本： 8.0.29-0ubuntu0.20.04.3
+-- 主机： localhost:3306
+-- 生成日期： 2022-06-17 23:39:47
+-- 服务器版本： 8.0.29-0ubuntu0.20.04.3
 -- PHP 版本： 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 資料庫： `Course`
+-- 数据库： `Course`
 --
 
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `Attend`
+-- 表的结构 `Attend`
 --
 
 CREATE TABLE `Attend` (
@@ -36,7 +36,7 @@ CREATE TABLE `Attend` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- 傾印資料表的資料 `Attend`
+-- 转存表中的数据 `Attend`
 --
 
 INSERT INTO `Attend` (`aId`, `cId`, `sId`, `aDesc`) VALUES
@@ -44,18 +44,22 @@ INSERT INTO `Attend` (`aId`, `cId`, `sId`, `aDesc`) VALUES
 (7, 33, 1, NULL),
 (8, 4, 1, NULL),
 (9, 4, 1, NULL),
-(10, 8, 2, NULL),
-(11, 3, 2, NULL);
+(11, 3, 2, NULL),
+(12, 3, 3, NULL),
+(13, 4, 3, NULL),
+(16, 33, 4, NULL),
+(17, 1, 4, NULL);
 
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `Course`
+-- 表的结构 `Course`
 --
 
 CREATE TABLE `Course` (
   `cId` int UNSIGNED NOT NULL,
   `tId` int UNSIGNED NOT NULL,
+  `rId` int UNSIGNED NOT NULL,
   `cName` char(255) NOT NULL,
   `cDesc` text NOT NULL,
   `dateTime` datetime NOT NULL,
@@ -64,20 +68,21 @@ CREATE TABLE `Course` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- 傾印資料表的資料 `Course`
+-- 转存表中的数据 `Course`
 --
 
-INSERT INTO `Course` (`cId`, `tId`, `cName`, `cDesc`, `dateTime`, `unit`, `max`) VALUES
-(0, 6, '我愛紅娘', '紅娘愛我', '2022-06-16 00:00:00', 4, 43),
-(3, 6, 'Networking', 'Networking programming', '2022-06-15 00:00:00', 4, 43),
-(4, 6, '五燈獎', '三顆星', '2022-06-16 00:00:00', 4, 25),
-(8, 0, 'DataBase2', 'MySQL_Database', '2022-06-16 22:00:34', 4, 45),
-(33, 2, '忍術', '螺旋丸', '2022-06-22 17:37:31', 3, 3);
+INSERT INTO `Course` (`cId`, `tId`, `rId`, `cName`, `cDesc`, `dateTime`, `unit`, `max`) VALUES
+(0, 6, 0, '我愛紅娘', '紅娘愛我', '2022-06-16 00:00:00', 4, 43),
+(1, 7, 1, '天女散花', '爆米花', '2022-06-16 00:00:00', 4, 43),
+(3, 6, 0, 'Networking', 'Networking programming', '2022-06-15 00:00:00', 4, 43),
+(4, 6, 0, '五燈獎', '三顆星', '2022-06-16 00:00:00', 4, 25),
+(8, 6, 0, 'DataBase', 'MySQL_Database', '2022-06-16 22:00:34', 4, 45),
+(33, 2, 2, '忍術', '螺旋丸', '2022-06-22 17:37:31', 3, 3);
 
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `Department`
+-- 表的结构 `Department`
 --
 
 CREATE TABLE `Department` (
@@ -89,7 +94,7 @@ CREATE TABLE `Department` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- 傾印資料表的資料 `Department`
+-- 转存表中的数据 `Department`
 --
 
 INSERT INTO `Department` (`dId`, `dName`, `dAddress`, `dPhone`, `chair`) VALUES
@@ -100,29 +105,29 @@ INSERT INTO `Department` (`dId`, `dName`, `dAddress`, `dPhone`, `chair`) VALUES
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `Room`
+-- 表的结构 `Room`
 --
 
 CREATE TABLE `Room` (
-  `rId` int NOT NULL,
-  `tId` int UNSIGNED NOT NULL,
+  `rId` int UNSIGNED NOT NULL,
   `rSzie` int NOT NULL,
   `rLocation` char(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- 傾印資料表的資料 `Room`
+-- 转存表中的数据 `Room`
 --
 
-INSERT INTO `Room` (`rId`, `tId`, `rSzie`, `rLocation`) VALUES
-(1, 2, 3, '44'),
-(2, 5, 44, '55'),
-(3, 2, 3, '33');
+INSERT INTO `Room` (`rId`, `rSzie`, `rLocation`) VALUES
+(0, 44, '資工大樓'),
+(1, 20, '七星山'),
+(2, 3, '木葉村'),
+(3, 3, '少林室');
 
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `Student`
+-- 表的结构 `Student`
 --
 
 CREATE TABLE `Student` (
@@ -135,25 +140,25 @@ CREATE TABLE `Student` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- 傾印資料表的資料 `Student`
+-- 转存表中的数据 `Student`
 --
 
 INSERT INTO `Student` (`sID`, `dId`, `sName`, `sPhone`, `sMail`, `sbirthday`) VALUES
+(0, 0, 'Mu', '0911-123-4563', 'Mu@hotmail', '2021-06-01'),
 (1, 0, 'Peter_pan', '0911-123-456', 'peter@hotmail', '2021-06-01'),
 (2, 0, 'Bill', '0911-123-411', 'bill@hotmail', '2021-06-01'),
 (3, 0, 'NTO', '329-3335', 'wbc@boa', '2021-06-11'),
 (4, 0, 'Peter_pan32222', '0911-123-456', 'peter@hotmail', '2021-06-01'),
 (6, 0, 'alan', '123311', 'alan@foo', '2021-06-16'),
 (7, 0, 'mike', '0911-123-454', 'mike@fooww', '2021-06-15'),
-(11, 0, 'Vincent', '123456', 'test_sMail@f6oo', '2202-04-06'),
-(13, 1, 'ken_chw', '0911-123-000', 'ken@foo', '2021-06-12'),
+(8, 1, 'ken_chw', '0911-123-000', 'ken@foo', '2021-06-12'),
 (32, 0, 'Joe', '0911-123-456', 'peter@hotmail', '2021-06-01'),
 (33, 0, 'NTO', '329-3335', 'wbc@boa', '2021-06-11');
 
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `Teacher`
+-- 表的结构 `Teacher`
 --
 
 CREATE TABLE `Teacher` (
@@ -163,7 +168,7 @@ CREATE TABLE `Teacher` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- 傾印資料表的資料 `Teacher`
+-- 转存表中的数据 `Teacher`
 --
 
 INSERT INTO `Teacher` (`tId`, `tName`, `tPhone`) VALUES
@@ -173,14 +178,15 @@ INSERT INTO `Teacher` (`tId`, `tName`, `tPhone`) VALUES
 (3, '趙高', '02-3331-0900'),
 (4, '大蛇丸', '02-1123-7777'),
 (5, '咩咩羊', '02-1123-4412'),
-(6, '大灰狼', '02-1123-4412');
+(6, '大灰狼', '02-1123-4412'),
+(7, '九天玄女', '02-1123-800');
 
 --
--- 已傾印資料表的索引
+-- 转储表的索引
 --
 
 --
--- 資料表索引 `Attend`
+-- 表的索引 `Attend`
 --
 ALTER TABLE `Attend`
   ADD PRIMARY KEY (`aId`),
@@ -188,73 +194,68 @@ ALTER TABLE `Attend`
   ADD KEY `cId` (`cId`,`sId`) USING BTREE;
 
 --
--- 資料表索引 `Course`
+-- 表的索引 `Course`
 --
 ALTER TABLE `Course`
   ADD PRIMARY KEY (`cId`),
-  ADD KEY `TeachForeignKey` (`tId`);
+  ADD KEY `TeachForeignKey` (`tId`),
+  ADD KEY `RoomId` (`rId`);
 
 --
--- 資料表索引 `Department`
+-- 表的索引 `Department`
 --
 ALTER TABLE `Department`
   ADD PRIMARY KEY (`dId`);
 
 --
--- 資料表索引 `Room`
+-- 表的索引 `Room`
 --
 ALTER TABLE `Room`
-  ADD PRIMARY KEY (`rId`),
-  ADD KEY `Teacher` (`tId`);
+  ADD PRIMARY KEY (`rId`);
 
 --
--- 資料表索引 `Student`
+-- 表的索引 `Student`
 --
 ALTER TABLE `Student`
   ADD PRIMARY KEY (`sID`),
   ADD KEY `Department` (`dId`);
 
 --
--- 資料表索引 `Teacher`
+-- 表的索引 `Teacher`
 --
 ALTER TABLE `Teacher`
   ADD PRIMARY KEY (`tId`);
 
 --
--- 在傾印的資料表使用自動遞增(AUTO_INCREMENT)
+-- 在导出的表使用AUTO_INCREMENT
 --
 
 --
--- 使用資料表自動遞增(AUTO_INCREMENT) `Attend`
+-- 使用表AUTO_INCREMENT `Attend`
 --
 ALTER TABLE `Attend`
-  MODIFY `aId` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `aId` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- 已傾印資料表的限制式
+-- 限制导出的表
 --
 
 --
--- 資料表的限制式 `Attend`
+-- 限制表 `Attend`
 --
 ALTER TABLE `Attend`
   ADD CONSTRAINT `Atttend` FOREIGN KEY (`cId`) REFERENCES `Course` (`cId`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `Student` FOREIGN KEY (`sId`) REFERENCES `Student` (`sID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
--- 資料表的限制式 `Course`
+-- 限制表 `Course`
 --
 ALTER TABLE `Course`
+  ADD CONSTRAINT `RoomId` FOREIGN KEY (`rId`) REFERENCES `Room` (`rId`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `TeachForeignKey` FOREIGN KEY (`tId`) REFERENCES `Teacher` (`tId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
--- 資料表的限制式 `Room`
---
-ALTER TABLE `Room`
-  ADD CONSTRAINT `Teacher` FOREIGN KEY (`tId`) REFERENCES `Teacher` (`tId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- 資料表的限制式 `Student`
+-- 限制表 `Student`
 --
 ALTER TABLE `Student`
   ADD CONSTRAINT `Department` FOREIGN KEY (`dId`) REFERENCES `Department` (`dId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
