@@ -16,9 +16,11 @@
 <form name="form" action="attend.php" method="post">
 輸入學號: <input type=text name=sId id=sId> <input type=submit value=查尋><br>
 <form>
- <a href="admin_main.php?q=SELECT Course.*,Teacher.tName FROM Course JOIN Teacher ON Teacher.tId = Course.tId&t=Attend&k=cId&f=tName&o=Attend" height=300 width=1400>
+<!--
+<a href="admin_main.php?q=SELECT Course.*,Teacher.tName FROM Course JOIN Teacher ON Teacher.tId = Course.tId&t=Attend&k=cId&f=tName&o=Attend" height=300 width=1400>
 
 加選測試</a><br>
+-->
 <br>
 </center>
 </body>
